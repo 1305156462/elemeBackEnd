@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.eleme.dao.CartMapper">
+  <resultMap id="BaseResultMap" type="com.liu.eleme.pojo.Cart">
+  	<id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="shopname" jdbcType="VARCHAR" property="shopname" />
+    <result column="shopphoto" jdbcType="VARCHAR" property="shopphoto" />
+    <result column="foodname" jdbcType="VARCHAR" property="foodname" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="orderid" jdbcType="VARCHAR" property="orderid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.liu.eleme.pojo.Cart">
+    insert into order_info ( id, userid, shopname, shopphoto, foodname, count, price, orderid, createtime)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{shopname,jdbcType=VARCHAR}, #{shopphoto,jdbcType=VARCHAR}, #{foodname,jdbcType=VARCHAR},	#{count,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{orderid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <select id="selectOrder"
+		resultMap="BaseResultMap">
+		select userid,order_info.shopname,order_info.shopphoto,foodname,sum(count) count,sum(count*price) price,orderid,createtime
+		FROM order_info,shoplist
+		where userid=#{userid,jdbcType=INTEGER} and order_info.shopname=shoplist.shopname
+		GROUP BY orderid
+		ORDER BY createtime DESC
+		
+	</select>
+</mapper>

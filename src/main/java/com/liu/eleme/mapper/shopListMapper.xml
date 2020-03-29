@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.eleme.dao.shopListMapper">
+	<resultMap id="BaseResultMap" type="com.liu.eleme.pojo.shopList">
+    	<id column="id" jdbcType="INTEGER" property="id" />
+    	<result column="shopname" jdbcType="VARCHAR" property="shopname" />
+    	<result column="shopphoto" jdbcType="VARCHAR" property="shopphoto" />
+    	<result column="stars" jdbcType="VARCHAR" property="stars" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, shopname, shopphoto, stars
+	</sql>
+	<select id="selectShop" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from shoplist
+	</select>
+</mapper>

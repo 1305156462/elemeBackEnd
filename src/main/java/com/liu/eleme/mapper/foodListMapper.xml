@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liu.eleme.dao.foodListMapper">
+	<resultMap id="BaseResultMap" type="com.liu.eleme.pojo.foodList">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="shopname" jdbcType="VARCHAR" property="shopname" />
+		<result column="classification" jdbcType="VARCHAR" property="classification" />
+		<result column="foodname" jdbcType="VARCHAR" property="foodname" />
+		<result column="price" jdbcType="FLOAT" property="price" />
+		<result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, shopname, classification, foodname, price, imgurl
+	</sql>
+	<select id="foundByShopname" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select *
+		from foodlist
+		where shopname = #{shopname,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>
